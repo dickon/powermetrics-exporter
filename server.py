@@ -22,9 +22,10 @@ def inspect(verbose=False):
         ('GPU Thermal level: (\d+)', 'thermal_level{point="gpu"}'),        
         ('Fan: (\d+) rpm', 'fan{point="system"}'),
         ('read: ([\d.]+) ops/s', 'disk_iops{mode="read"}'),
-        ('write: ([\d.]+) ops/s', 'disk_iops{mode="read"}'),
+        ('write: ([\d.]+) ops/s', 'disk_iops{mode="write"}'),
         ('read: [\d.]+ ops/s ([\d.]) KBytes/s', 'disk_bandwidth{mode="read"}'),
-        ('write: [\d.]+ ops/s ([\d.]) KBytes/s', 'disk_bandwidth{mode="read"}'),
+        ('write: [\d.]+ ops/s ([\d.]) KBytes/s', 'disk_bandwidth{mode="write"}'),
+        ('Intel energy model derived package power \(CPUs\+GT\+SA\): ([\d.]+)W', 'processor_power'),
     ]:
         m = re.search(pattern, text)
         if m:
@@ -49,6 +50,7 @@ class MyServer(socketserver.TCPServer):
         self.socket.bind(self.server_address)
         ('read: [\d.]+ ops/s ([\d.]) KBytes/s', 'disk_bandwidth{mode="read"}'),
 
+print(inspect(verbose=True))
 # Create an object of the above class
 handler_object = MyHttpRequestHandler
 
